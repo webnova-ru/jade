@@ -13,12 +13,12 @@ html
         .logo-container
           a(href=path('/'))
             img(src="/style/logo.png")
-            .sr-only Jade - Node Template Engine
+            .sr-only Jade - {{node-template-engine}}
         .navbar.navbar-default.navbar-static-top
           .container
             .navbar-header.visible-sm.visible-xs
               button.navbar-toggle(type='button' data-toggle='collapse' data-target='.navbar-collapse')
-                span.sr-only Toggle navigation
+                span.sr-only {{toggle-navigation}}
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
@@ -27,17 +27,17 @@ html
               ul.nav.navbar-nav
                 block navsections
                   li(class=section === 'reference' ? 'active' : false)
-                    a(href=path('/reference')) Language Reference
+                    a(href=path('/reference')) {{language-reference}}
                   li(class=section === 'api' ? 'active' : false)
-                    a(href=path('/api')) API
+                    a(href=path('/api')) {{api}}
                   li(class=section === 'command-line' ? 'active' : false)
-                    a(href=path('/command-line')) Command Line
+                    a(href=path('/command-line')) {{command-line}}
               ul.nav.navbar-nav.navbar-right
                 li(class=section === 'history' ? 'active' : false)
-                  a(href='/history') Change Log
-                li: a(href=path('/coverage/')) Code Coverage
-                li: a(href='https://travis-ci.org/visionmedia/jade') Test Results
-                li: a(href='https://github.com/visionmedia/jade') GitHub Repository
+                  a(href=path('/history', {version: 'latest'})) {{change-log}}
+                li: a(href=path('/coverage/', {lang: 'en'})) {{coverage}}
+                li: a(href='https://travis-ci.org/visionmedia/jade') {{test-results}}
+                li: a(href='https://github.com/visionmedia/jade') {{github-repository}}
               block navigation
         .container
           block content
@@ -45,10 +45,7 @@ html
     #footer-wrapper
       footer
         .container
-          p
-            | Jade is a template language maintained by&nbsp;
-            a(href='http://www.forbeslindesay.co.uk') @ForbesLindesay
-            |.
+          p {{maintained-by({name: '<a href="http://www.forbeslindesay.co.uk">@ForbesLindesay</a>'})}}
     include ./includes/ga.jade
     script(src=path("/client.js"))
     script(src="http://code.jquery.com/jquery-2.1.1.min.js")
