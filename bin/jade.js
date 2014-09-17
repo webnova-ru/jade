@@ -61,11 +61,12 @@ program.parse(process.argv);
 
 // options given, parse them
 
+var locals;
 if (program.obj) {
   if (exists(program.obj)) {
-    options = JSON.parse(fs.readFileSync(program.obj));
+    locals = JSON.parse(fs.readFileSync(program.obj));
   } else {
-    options = eval('(' + program.obj + ')');
+    locals = eval('(' + program.obj + ')');
   }
 }
 
@@ -142,7 +143,7 @@ function stdin() {
       output = jade.compileClient(buf, options);
     } else {
       var fn = jade.compile(buf, options);
-      var output = fn(options);
+      var output = fn(locals);
     }
     process.stdout.write(output);
   }).resume();
@@ -180,7 +181,7 @@ function renderFile(path) {
         mkdirp(dir, 0755, function(err){
           if (err) throw err;
           try {
-            var output = options.client ? fn : fn(options);
+            var output = options.client ? fn : fn(locals);
             fs.writeFile(path, output, function(err){
               if (err) throw err;
               console.log('  \033[90mrendered \033[36m%s\033[0m', path);
